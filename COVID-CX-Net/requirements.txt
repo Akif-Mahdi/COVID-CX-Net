@@ -1,0 +1,38 @@
+# requirements.txt
+# Exact versions from the paper's experimental environment (Supplementary Section 4)
+# Hardware: NVIDIA RTX A6000 (48 GB VRAM), CUDA 11.8
+
+# Core deep learning
+torch==2.1.0+cu118
+torchvision==0.16.0
+torchaudio==2.1.0+cu118
+
+# Scientific computing
+numpy==1.24.4
+scipy==1.11.4
+pandas==2.1.4
+scikit-learn==1.3.2
+
+# Image processing
+Pillow==10.1.0
+pydicom==2.4.4           # DICOM support for MIMIC-CXR
+
+# Visualisation
+matplotlib==3.8.2
+
+# Grad-CAM
+grad-cam==1.5.0          # pytorch-grad-cam by Jacob Gildenblat
+
+# Statistics
+statsmodels==0.14.0      # McNemar's test
+
+# Utilities
+pyyaml==6.0.1            # Config file parsing
+tqdm==4.66.1             # Progress bars
+
+# Optional: faster DICOM decompression
+# gdcm                   # conda install -c conda-forge gdcm
+
+# Development / testing
+# pytest==7.4.4
+# black==23.12.1

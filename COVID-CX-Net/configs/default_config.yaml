@@ -1,0 +1,118 @@
+# configs/default_config.yaml
+# ============================================================
+# Default configuration for COVID-CX-Net training and evaluation
+# Paper: "Projection-Induced Domain Shift in Chest X-Ray Classification"
+# ============================================================
+
+# ── Data ─────────────────────────────────────────────────────
+data:
+  image_size: 224
+  batch_size: 32
+  num_workers: 4
+  pin_memory: true
+
+  # Dataset paths (override on command line or in a custom config)
+  # Format: directory containing class subdirectories, or a CSV manifest
+  train_manifest: null        # path/to/train.csv
+  val_manifest:   null        # path/to/val.csv
+  test_manifest:  null        # path/to/test.csv
+
+  # MIMIC-CXR specific
+  mimic_root:       null      # path/to/mimic-cxr-jpg or mimic-cxr-dcm
+  mimic_metadata:   null      # path/to/mimic-cxr-2.0.0-metadata.csv
+  mimic_labels:     null      # path/to/mimic-cxr-2.0.0-chexpert.csv
+
+  # Label encoding (dataset-specific; override per experiment)
+  class_names: ["COVID-19", "Normal", "Pneumonia"]
+  num_classes: 3
+
+# ── Model ────────────────────────────────────────────────────
+model:
+  arch: covidcxnet             # covidcxnet | vgg16 | resnet50 | densenet121 | chexnet
+  pretrained: true             # Use ImageNet pretrained backbone
+  freeze_backbone: false       # Freeze feature extractor
+  dropout_rate: 0.3
+
+# ── Training ─────────────────────────────────────────────────
+training:
+  epochs: 50
+  early_stopping_patience: 10  # Paper: stop after 10 epochs with no improvement
+  seed: 0                      # Paper uses seeds 0-4 (composite), 0-9 (MIMIC-CXR)
+
+  # Optimizer
+  optimizer: adam
+  lr: 1.0e-4                   # Paper: lr = 10^{-4}
+  weight_decay: 1.0e-4
+  lr_scheduler: cosine         # Paper: cosine decay
+
+  # View-consistency regularization
+  lambda_view: 0.1             # Optimal λ per Table 4; range tested: 0.0–0.3
+  lambda_grid_search: [0.0, 0.01, 0.05, 0.10, 0.15, 0.20, 0.30]
+  paired_fraction: 0.15        # ~15% of composite datasets have AP/PA pairs
+
+  # Checkpointing
+  checkpoint_dir: checkpoints/
+  save_every: 5                # Save every N epochs
+
+# ── Evaluation ───────────────────────────────────────────────
+evaluation:
+  # Projection-stratified evaluation subsets
+  projection_col: projection   # Column name in manifest CSV: 'AP' or 'PA'
+
+  # Bootstrap CI
+  bootstrap_n_iter: 1000
+  bootstrap_ci: 0.95
+  bootstrap_seed: 0
+
+  # VBS thresholds (paper Section 3.5)
+  vbs_acceptable: 0.05         # VBS < 5%: acceptable
+  vbs_monitor:    0.10         # VBS 5-10%: requires monitoring
+  # VBS > 10%: clinically unacceptable
+
+  # Statistical tests
+  significance_level: 0.05
+  bonferroni_n_comparisons_composite: 4
+  bonferroni_n_comparisons_mimic: 6
+
+# ── Grad-CAM ─────────────────────────────────────────────────
+gradcam:
+  input_size: 224
+  alpha: 0.5                   # Overlay transparency
+  tau: 0.5                     # Binarisation threshold for IoU
+  n_pairs: 50                  # Matched image pairs for IoU computation
+  colormap: jet
+  output_dpi: 300
+  fig3_size_px: [2068, 812]    # Width × Height
+  fig4_size_px: [2068, 812]
+  fig5_size_px: [2064, 827]
+
+  # CheXNet class indices (NIH ChestX-ray14 alphabetical order)
+  nih_classes:
+    - Atelectasis       # 0
+    - Cardiomegaly      # 1
+    - Consolidation     # 2
+    - Edema             # 3
+    - Effusion          # 4
+    - Emphysema         # 5
+    - Fibrosis          # 6
+    - Hernia            # 7
+    - Infiltration      # 8
+    - Mass              # 9
+    - Nodule            # 10
+    - Pleural_Thickening # 11
+    - Pneumonia         # 12
+    - Pneumothorax      # 13
+
+# ── Reproducibility ──────────────────────────────────────────
+reproducibility:
+  seeds_composite: [0, 1, 2, 3, 4]
+  seeds_mimic:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  disable_horizontal_flip: true   # Critical: preserve anatomical orientation
+  cudnn_deterministic: true
+  cudnn_benchmark: false
+
+# ── Hardware ─────────────────────────────────────────────────
+hardware:
+  device: cuda                 # cuda | cpu
+  num_gpus: 1
+  # Paper: NVIDIA RTX A6000 (48 GB VRAM), CUDA 11.8

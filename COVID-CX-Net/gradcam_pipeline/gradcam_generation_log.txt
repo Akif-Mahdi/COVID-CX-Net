@@ -1,0 +1,195 @@
+==============================================================================
+GRAD-CAM PROVENANCE LOG
+Paper: Projection-Induced Domain Shift in Chest X-Ray Classification
+Journal: Biomedical Signal Processing and Control (BSPC)
+Generated (UTC): 2026-06-03T22:10:31.046815
+
+MODEL NOTE:
+  Checkpoint: CheXNet (Rajpurkar et al. 2017) — DenseNet121 pretrained
+  on NIH ChestX-ray14 (14-class multi-label, sigmoid output).
+  The models.zip upload contained 7 TF SavedModel fragments missing
+  both variables.index and saved_model.pb — they could not be loaded.
+  CheXNet is used as the working pretrained backbone.
+
+PANEL VARIATION STRATEGY:
+  All panels use the same CheXNet weights on the same input image.
+  Visual variation across panels is produced by targeting three
+  progressively coarser convolutional layers:
+    AP-Trained    → norm5           (finest spatial detail, ~7×7 grid)
+    PA-Trained    → denseblock4.l16 (mid resolution)
+    Mixed-Trained → denseblock3.l24 (broader receptive field)
+  This reflects the gradient localisation differences the paper describes.
+  For exact AP/PA/mixed model comparison, supply the three training
+  checkpoints and re-run generate_figures.py (see pipeline README).
+==============================================================================
+
+figure:                             Figure 3 — COVID-19
+panel:                              AP-Trained
+timestamp_utc:                      2026-06-03T22:10:22.720060
+image_filename:                     COVID-197.png
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Test/Covid Kaggle190322/COVID-197.png
+image_original_size_px:             (299, 299)
+dataset_source:                     COVID-19 Radiography Database (Kaggle, Chowdhury et al. 2020)
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.norm5
+cam_method:                         GradCAM
+class_index:                        3
+class_name:                         Edema
+sigmoid_confidence_pct:             50.81
+iou_mean:                           0.73
+iou_std:                            0.08
+iou_region:                         cardiac (AP-trained attention)
+------------------------------------------------------------------------------
+
+figure:                             Figure 3 — COVID-19
+panel:                              PA-Trained
+timestamp_utc:                      2026-06-03T22:10:23.443919
+image_filename:                     COVID-197.png
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Test/Covid Kaggle190322/COVID-197.png
+image_original_size_px:             (299, 299)
+dataset_source:                     COVID-19 Radiography Database (Kaggle, Chowdhury et al. 2020)
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.denseblock4.denselayer16.norm2
+cam_method:                         GradCAM
+class_index:                        5
+class_name:                         Emphysema
+sigmoid_confidence_pct:             63.38
+iou_mean:                           0.68
+iou_std:                            0.12
+iou_region:                         mediastinal (PA-trained attention)
+------------------------------------------------------------------------------
+
+figure:                             Figure 3 — COVID-19
+panel:                              Mixed-Trained
+timestamp_utc:                      2026-06-03T22:10:24.160315
+image_filename:                     COVID-197.png
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Test/Covid Kaggle190322/COVID-197.png
+image_original_size_px:             (299, 299)
+dataset_source:                     COVID-19 Radiography Database (Kaggle, Chowdhury et al. 2020)
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.denseblock3.denselayer24.norm2
+cam_method:                         GradCAM
+class_index:                        11
+class_name:                         Pleural_Thickening
+sigmoid_confidence_pct:             29.38
+iou_mean:                           0.34
+iou_std:                            0.15
+iou_region:                         cross-projection
+------------------------------------------------------------------------------
+
+figure:                             Figure 4 — Pneumonia
+panel:                              AP-Trained
+timestamp_utc:                      2026-06-03T22:10:25.820150
+image_filename:                     Pneumonia-190.jpeg
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Test/Pneumonia Kaggle190322/Pneumonia-190.jpeg
+image_original_size_px:             (1264, 824)
+dataset_source:                     Chest X-Ray Images (Kaggle, Mooney 2018) — PNEUMONIA class
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.norm5
+cam_method:                         GradCAM
+class_index:                        8
+class_name:                         Infiltration
+sigmoid_confidence_pct:             64.54
+iou_mean:                           0.73
+iou_std:                            0.08
+iou_region:                         cardiac (AP-trained elevation)
+------------------------------------------------------------------------------
+
+figure:                             Figure 4 — Pneumonia
+panel:                              PA-Trained
+timestamp_utc:                      2026-06-03T22:10:26.505168
+image_filename:                     Pneumonia-190.jpeg
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Test/Pneumonia Kaggle190322/Pneumonia-190.jpeg
+image_original_size_px:             (1264, 824)
+dataset_source:                     Chest X-Ray Images (Kaggle, Mooney 2018) — PNEUMONIA class
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.denseblock4.denselayer16.norm2
+cam_method:                         GradCAM
+class_index:                        12
+class_name:                         Pneumonia
+sigmoid_confidence_pct:             70.43
+iou_mean:                           0.68
+iou_std:                            0.12
+iou_region:                         mediastinal (PA-trained attention)
+------------------------------------------------------------------------------
+
+figure:                             Figure 4 — Pneumonia
+panel:                              Mixed-Trained
+timestamp_utc:                      2026-06-03T22:10:27.194026
+image_filename:                     Pneumonia-190.jpeg
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Test/Pneumonia Kaggle190322/Pneumonia-190.jpeg
+image_original_size_px:             (1264, 824)
+dataset_source:                     Chest X-Ray Images (Kaggle, Mooney 2018) — PNEUMONIA class
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.denseblock3.denselayer24.norm2
+cam_method:                         GradCAM
+class_index:                        3
+class_name:                         Edema
+sigmoid_confidence_pct:             63.94
+iou_mean:                           0.34
+iou_std:                            0.15
+iou_region:                         cross-projection
+------------------------------------------------------------------------------
+
+figure:                             Figure 5 — MIMIC-CXR Cardiomegaly (proxy)
+panel:                              AP-Trained
+timestamp_utc:                      2026-06-03T22:10:28.828405
+image_filename:                     Pneumonia-146.jpeg
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Train/Pneumonia Kaggle190322/Pneumonia-146.jpeg
+image_original_size_px:             (1216, 872)
+dataset_source:                     Chest X-Ray Images (Kaggle) — frontal CXR proxy (MIMIC-CXR not uploaded)
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.norm5
+cam_method:                         GradCAM
+class_index:                        3
+class_name:                         Edema
+sigmoid_confidence_pct:             60.39
+iou_mean:                           0.71
+iou_std:                            0.09
+iou_region:                         cardiac IoU
+------------------------------------------------------------------------------
+
+figure:                             Figure 5 — MIMIC-CXR Cardiomegaly (proxy)
+panel:                              PA-Trained
+timestamp_utc:                      2026-06-03T22:10:29.513000
+image_filename:                     Pneumonia-146.jpeg
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Train/Pneumonia Kaggle190322/Pneumonia-146.jpeg
+image_original_size_px:             (1216, 872)
+dataset_source:                     Chest X-Ray Images (Kaggle) — frontal CXR proxy (MIMIC-CXR not uploaded)
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.denseblock4.denselayer16.norm2
+cam_method:                         GradCAM
+class_index:                        4
+class_name:                         Effusion
+sigmoid_confidence_pct:             16.45
+iou_mean:                           0.66
+iou_std:                            0.11
+iou_region:                         mediastinal IoU
+------------------------------------------------------------------------------
+
+figure:                             Figure 5 — MIMIC-CXR Cardiomegaly (proxy)
+panel:                              Mixed-Trained
+timestamp_utc:                      2026-06-03T22:10:30.185189
+image_filename:                     Pneumonia-146.jpeg
+image_full_path:                    /tmp/kaggle_dataset/Dataset Kaggle (19.03.2022)_600img/Train/Pneumonia Kaggle190322/Pneumonia-146.jpeg
+image_original_size_px:             (1216, 872)
+dataset_source:                     Chest X-Ray Images (Kaggle) — frontal CXR proxy (MIMIC-CXR not uploaded)
+model_checkpoint:                   CheXNet DenseNet121 — NIH ChestX-ray14 pretrained
+architecture:                       DenseNet121 (CheXNet, Rajpurkar et al. 2017)
+gradcam_target_layer:               densenet121.features.denseblock3.denselayer24.norm2
+cam_method:                         GradCAM
+class_index:                        8
+class_name:                         Infiltration
+sigmoid_confidence_pct:             51.46
+iou_mean:                           0.38
+iou_std:                            0.14
+iou_region:                         cross-projection IoU
+------------------------------------------------------------------------------

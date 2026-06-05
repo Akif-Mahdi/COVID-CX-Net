@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data — never commit patient data or large datasets
+data/
+*.dcm
+*.nii
+*.nii.gz
+*.h5
+*.hdf5
+
+# Model checkpoints — large binary files
+checkpoints/
+*.pth
+*.pt
+*.bin
+*.ckpt
+# Exception: commit small demo checkpoints if needed
+# !checkpoints/demo_checkpoint.pth
+
+# Results
+results/
+figures/output/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+runs/
+wandb/
+mlruns/
+
+# Temporary
+tmp/
+temp/
+.tmp/
