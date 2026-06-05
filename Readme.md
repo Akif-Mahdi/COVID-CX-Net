@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.9](https://img.shields.io/badge/Python-3.9.18-blue.svg)](https://www.python.org/)
 [![PyTorch 2.1](https://img.shields.io/badge/PyTorch-2.1.0-orange.svg)](https://pytorch.org/)
-[![BSPC](https://img.shields.io/badge/Journal-BSPC-green.svg)](https://www.sciencedirect.com/journal/biomedical-signal-processing-and-control)
+
 
 **Official implementation of:**
 
@@ -312,11 +312,11 @@ If you use this code or the VBS metric in your work, please cite:
   title     = {Projection-Induced Domain Shift in Chest X-Ray Classification:
                A Projection-Aware Evaluation and Regularization Framework},
   author    = {Mahdi, Akif and Prity, Jarin Alam and Kabir, M. Hasnat and
-               Shad, Md. Ibne Shihab and Nahin, Sahriar Nur and
+               Shad, Md. Ibne Shihab  and
                Wardak, Ahmad Wasim and Eysha, Nafees Nusrat},
-  journal   = {Biomedical Signal Processing and Control},
+  journal   = {},
   year      = {2026},
-  publisher = {Elsevier}
+  publisher = {}
 }
 ```
 
