@@ -9,7 +9,7 @@
 
 > **Projection-Induced Domain Shift in Chest X-Ray Classification: A Projection-Aware Evaluation and Regularization Framework**  
 > Akif Mahdi, Jarin Alam Prity, M. Hasnat Kabir, Md. Ibne Shihab Shad, Ahmad Wasim Wardak, Nafees Nusrat Eysha  
-> *Biomedical Signal Processing and Control (BSPC)*, 2026
+
 
 ---
 
